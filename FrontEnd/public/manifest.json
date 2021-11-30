@@ -1,0 +1,8 @@
+{
+  "short_name": "Bad Bank",
+  "name": "Bad Bank, An Insecure Banking Experience",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

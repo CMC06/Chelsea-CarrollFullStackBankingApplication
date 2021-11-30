@@ -1,0 +1,35 @@
+.App {
+  text-align: center;
+}
+
+.card {
+  margin: 2%;
+}
+
+form {
+  padding: 4px;
+}
+
+.tableDiv {
+  padding: 4px;
+  border-style: ridge;
+  border-width: 2px;
+  border-color: #212529;
+  margin: 10px;
+}
+
+.negative {
+  color: red;
+}
+
+.mb-3 {
+  text-align: left;
+}
+
+.form-label {
+  padding-left: 2px;
+}
+
+.smallP {
+  font-size: .75rem;
+}
