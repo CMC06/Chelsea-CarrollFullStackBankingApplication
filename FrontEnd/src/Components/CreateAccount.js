@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const CreateAccount = ({ setUsers, users }) => {
+const CreateAccount = ({ setUsers, users, setLoggedIn, setCurrentUser }) => {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -19,6 +19,8 @@ const CreateAccount = ({ setUsers, users }) => {
       console.log(data);
     })();
     setSuccess(true);
+    setLoggedIn(true);
+    setCurrentUser({name, email, balance: 0});
   };
 
   const handleChange = (e) => {

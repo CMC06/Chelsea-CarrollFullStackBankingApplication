@@ -33,3 +33,7 @@ form {
 .smallP {
   font-size: .75rem;
 }
+
+.navbar-text-box {
+  margin-left: auto;
+}

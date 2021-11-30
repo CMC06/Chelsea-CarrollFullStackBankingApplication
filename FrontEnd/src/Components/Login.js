@@ -14,6 +14,12 @@ const Login = ({loggedIn, setLoggedIn}) => {
   //TODO write submit logic to communicate with backend to check login credentials against stored credentials
   const handleSubmit = () => {
     console.log('You submitted your login credentials: ' + {email} + {password});
+    const url = `/account/login/${email}/${password}`;
+    (async () => {
+      const res = await fetch(url);
+      const data = await res.json();
+      console.log(data);
+    })();
   }
 
   const handleChange = (e) => {

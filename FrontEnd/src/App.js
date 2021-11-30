@@ -10,7 +10,7 @@ function App() {
   //[{name: 'Peter Parker', email: 'spidey@web.web', password: 'abc123security', balance: 150000}, {name: 'Dorris Day', email: 'dorris@sunshine.com', password:'singingHappy!', balance: 1000}]
   const [users, setUsers] = useState();
   const [loggedIn, setLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({name: 'Peter Parker', email: 'spidey@web.web', password: 'abc123security', balance: 150000});
+  const [currentUser, setCurrentUser] = useState(null);
   
   useEffect(() => {
     fetch('/account/all')
@@ -20,10 +20,14 @@ function App() {
       });
   }, []);
 
+  useEffect(() => {
+    console.log(currentUser);
+  }, [currentUser]);
+
   return (
     <div className="App">
     <UserContext.Provider value={currentUser} >
-      <NavBar users={users} setUsers={setUsers} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+      <NavBar users={users} setUsers={setUsers} loggedIn={loggedIn} setLoggedIn={setLoggedIn} setCurrentUser={setCurrentUser} currentUser={currentUser} />
     </UserContext.Provider>
     </div>
   );

@@ -8,7 +8,7 @@ app.use(express.static('public'));
 app.use(cors());
 
 //create user account
-app.get('/account/create/:name/:email/:password', (req, res) => {
+app.post('/account/create/:name/:email/:password', (req, res) => {
   dal.create(req.params.name, req.params.email, req.params.password)
     .then((user) => {
       console.log(user);
@@ -17,12 +17,12 @@ app.get('/account/create/:name/:email/:password', (req, res) => {
 });
 
 //login user
-// app.get('/account/login/:email/:password', (req, res) => {
-//   res.send({
-//     email: req.params.email,
-//     password: req.params.password
-//   });
-// });
+app.get('/account/login/:email/:password', (req, res) => {
+  res.send({
+    email: req.params.email,
+    password: req.params.password
+  });
+});
 
 //all accounts
 app.get('/account/all', (req, res) => {
@@ -31,6 +31,11 @@ app.get('/account/all', (req, res) => {
       console.log(docs);
       res.send(docs);
     });
+});
+
+//update balance info
+app.put('/account/:id/balance', (req, res) => {
+  const { balance } = req.body;
 });
 
 const port = 3000;
