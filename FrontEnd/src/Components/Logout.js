@@ -1,6 +1,6 @@
 const Logout = ({ setCurrentUser, setLoggedIn, loggedIn }) => {
 
-  let logged = true;
+  let logged = loggedIn;
   
   const handleConfirm = () =>{
     setCurrentUser(null);

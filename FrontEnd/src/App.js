@@ -13,12 +13,13 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   
   useEffect(() => {
-    fetch('/account/all')
+    const url = '/account/all';
+    fetch(url)
       .then(response => response.json())
       .then(data => {
         setUsers([...data]);
       });
-  }, []);
+  }, [currentUser]);
 
   useEffect(() => {
     console.log(currentUser);

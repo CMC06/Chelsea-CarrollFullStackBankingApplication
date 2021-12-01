@@ -70,7 +70,7 @@ const NavBar = ({ users, loggedIn, setLoggedIn, setCurrentUser, currentUser }) =
             <CreateAccount loggedIn={loggedIn} setLoggedIn={setLoggedIn} setCurrentUser={setCurrentUser} />
           </Route>
           <Route path="/login">
-            <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setCurrentUser={setCurrentUser} />
+            <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setCurrentUser={setCurrentUser} users={users} />
           </Route>
           <Route path="/deposit">
             <Deposit />
