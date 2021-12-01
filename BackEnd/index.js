@@ -8,7 +8,7 @@ app.use(express.static('public'));
 app.use(cors());
 
 //create user account
-app.post('/account/create/:name/:email/:password', (req, res) => {
+app.get('/account/create/:name/:email/:password', (req, res) => {
   dal.create(req.params.name, req.params.email, req.params.password)
     .then((user) => {
       console.log(user);
