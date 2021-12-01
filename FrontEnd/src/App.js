@@ -12,6 +12,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   
+  //pulling all account data from database
   useEffect(() => {
     const url = '/account/all';
     fetch(url)
@@ -19,10 +20,6 @@ function App() {
       .then(data => {
         setUsers([...data]);
       });
-  }, [currentUser]);
-
-  useEffect(() => {
-    console.log(currentUser);
   }, [currentUser]);
 
   return (
