@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const CreateAccount = ({ setUsers, users, setLoggedIn, setCurrentUser }) => {
+const CreateAccount = ({ setLoggedIn, setCurrentUser }) => {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -10,17 +10,24 @@ const CreateAccount = ({ setUsers, users, setLoggedIn, setCurrentUser }) => {
   const [passwordError, setPasswordError] = useState(false);
   const [nameError, setNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
+  
 
   const handleSubmit = () => {
     const url = `/account/create/${name}/${email}/${password}`;
     (async () => {
       const res = await fetch(url);
+      if(res.status === 409){
+        console.log('Email already attached to existing account. Please log in.');
+        alert('Error: this email address is already attached to an account. Please log in to your existing account.');
+        return null;
+      }
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
+      setSuccess(true);
+      setLoggedIn(true);
+      setCurrentUser({...data});
     })();
-    setSuccess(true);
-    setLoggedIn(true);
-    setCurrentUser({name, email, balance: 0});
+    
   };
 
   const handleChange = (e) => {
@@ -86,8 +93,10 @@ const CreateAccount = ({ setUsers, users, setLoggedIn, setCurrentUser }) => {
 
   }
 
-  const handleCreateUser = () => {
+  const handleNewCreateUser = () => {
     setSuccess(false);
+    setCurrentUser(null);
+    setLoggedIn(false);
   }
 
   return (
@@ -100,7 +109,7 @@ const CreateAccount = ({ setUsers, users, setLoggedIn, setCurrentUser }) => {
         {success === true ? 
           <>
           <p className="card-text">Congratulations, you have successfully created an account with Bad Bank! If you would like to create another account, please click below.</p>
-          <button type="button" onClick={handleCreateUser} className="btn btn-dark">Create Another Account</button>
+          <button type="button" onClick={handleNewCreateUser} className="btn btn-dark">Create Another Account</button>
           </>
           : 
           <>

@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-
 const AllData = ({ users }) => {
   
   const dataList = users.map(user => {
@@ -7,7 +5,7 @@ const AllData = ({ users }) => {
       <tr key={user._id}>
         <td>{user.name}</td>
         <td>{user.email}</td>
-        <td>{user.password}</td>
+        <td>{user.balance}</td>
       </tr>
       )
   });
@@ -26,7 +24,7 @@ const AllData = ({ users }) => {
                 <tr>
                   <th scope="col">Name</th>
                   <th scope="col">Email</th>
-                  <th scope="col">Password</th>
+                  <th scope="col">Balance</th>
                 </tr>
               </thead>
               <tbody>

@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { UserContext } from '../App';
 
-const Deposit = () => {
+const Deposit = ({ setCurrentUser }) => {
 
   const [ depositAmt, setDepositAmt ] = useState(0);
   const [ success, setSuccess ] = useState(false);
@@ -30,14 +30,25 @@ const Deposit = () => {
 
   const updateBalance = () => {
     let newBalance = Number(balance) + Number(depositAmt);
-    console.log('new balance: ' + newBalance);
-    user.balance = newBalance;
+    return newBalance
   }
 
   const handleSubmit = () => {
-    updateBalance();
-    setDepositAmt(0);
-    setSuccess(true);
+    const email = user.email;
+    
+    const newBalance = updateBalance();
+    const url = `/account/updateBalance/${email}/${newBalance}`;
+    (async () => {
+      const res = await fetch(url);
+      const data = await res.json();
+      
+      if(data.email === email){
+        setCurrentUser({...data});
+        setDepositAmt(0);
+        setSuccess(true);
+      }
+    })();
+    
   }
 
   const handleAddition = () => {

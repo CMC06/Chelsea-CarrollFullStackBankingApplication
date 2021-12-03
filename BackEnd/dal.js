@@ -1,36 +1,74 @@
-const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://localhost:27017';
-let db = null;
-
-//connect to Mongo
-MongoClient.connect(url, {useUnifiedTopology: true}, (err, client) => {
-  console.log('Connected successfully to db server');
-
-  //connect to bad-bank-project database
-  db = client.db('bad-bank-project');
-});
+const { MongoClient } = require('mongodb');
+const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@bad-bank-cmc06.gvnof.mongodb.net/users?retryWrites=true&w=majority`;
+//client to connect to for data
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+//collection where bad-bank data is housed
+const collection = client.db("bad-bank-cmc06").collection('users');
 
 //create user account
 const create = (name, email, password) => {
   return new Promise((resolve, reject) => {
-    const collection = db.collection('users');
-    const doc = {name, email, password, balance: 0};
-    collection.insertOne(doc, {w:1}, (err, result) => {
-      err ? reject(err) : resolve(doc);
+    client.connect(err => {
+      const doc = {name, email, password, balance: 0};
+      collection.insertOne(doc, {w:1}, (err, result) => {
+        err ? reject(err) : resolve(doc);
+      });
+    });
+    
+  });
+}
+
+//get all user accounts
+const allUsers = () => {
+  return new Promise((resolve, reject) => {
+    client.connect(err => {
+      collection.find({})
+      .toArray((err, docs) => {
+        err ? reject(err) : resolve(docs);
+      });
     });
   });
 }
 
-//all users
-const allUsers = () => {
+//update balance info
+const updateBalance = (email, newBalance) => {
+  let balance = Number(newBalance)
   return new Promise((resolve, reject) => {
-    const customers = db
-      .collection('users')
-      .find({})
-      .toArray((err, docs) => {
-        err ? reject(err) : resolve(docs);
+    client.connect(err => {
+      collection.updateOne(
+        {"email": email}, 
+        {
+          $set: {"balance": balance}
+        })
+        .then(doc => {
+          resolve(doc);
+        })
+        .catch(err => {
+          reject(err);
+        })
+        if(err){
+          console.log(err);
+        }
       });
   });
 }
 
-module.exports = {create, allUsers};
+//find one user, should return null if no existing user--if user exists, it will return user document
+const checkForAccount = (email) => {
+  return new Promise ((resolve, reject) => {
+    client.connect(err => {
+      collection.findOne(
+        { email: email }
+      )
+      .then((user) => {
+        resolve(user);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+    });
+  });
+}
+
+
+module.exports = { create, allUsers, updateBalance, checkForAccount };

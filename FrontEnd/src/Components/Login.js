@@ -1,7 +1,6 @@
-import { useState, useContext } from 'react';
-import { UserContext } from '../App';
+import { useState } from 'react';
 
-const Login = ({loggedIn, setLoggedIn, setCurrentUser, users}) => {
+const Login = ({ loggedIn, setLoggedIn, setCurrentUser }) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -9,20 +8,23 @@ const Login = ({loggedIn, setLoggedIn, setCurrentUser, users}) => {
   const [passwordError, setPasswordError] = useState(false);
   const [btnDisable, setBtnDisable] = useState(true);
 
-  const user = useContext(UserContext);
 
   //TODO write submit logic to communicate with backend to check login credentials against stored credentials
   const handleSubmit = () => {
-    console.log('You submitted your login credentials: ' + {email} + {password});
-
+    //verifies user submitted information against user information in database
     const url = `/account/login/${email}/${password}`;
     (async () => {
       const res = await fetch(url);
-      const data = await res.json();
-      console.log(data);
-      if(data){
-        setLoggedIn(true);
-        setCurrentUser({...data});
+      if(res.status === 401 || res.status === 409){
+        alert(`Either user email or user password do not match our database. If you have not yet created an account, please do so by clicking 'Create Account'`);
+      } else {
+        const data = await res.json();
+        
+        if(data){
+          setLoggedIn(true);
+          //updates current user with database information
+          setCurrentUser({...data});
+      }
       }
     })();
   }

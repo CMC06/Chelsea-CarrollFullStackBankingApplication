@@ -12,6 +12,7 @@ import Home from "./Home";
 import Login from "./Login";
 import Logout from "./Logout";
 import Withdraw from "./Withdraw";
+import Transfer from "./Transfer";
 
 const NavBar = ({ users, loggedIn, setLoggedIn, setCurrentUser, currentUser }) => {
 
@@ -44,6 +45,9 @@ const NavBar = ({ users, loggedIn, setLoggedIn, setCurrentUser, currentUser }) =
                     <Link to="/withdraw" className="nav-link" title="Make a withdrawal from your account.">Withdraw</Link>
                   </li>
                   <li className="nav-item">
+                    <Link to="/transfer" className="nav-link" title="Make a transfer from your account to another Bad Bank account.">Transfer</Link>
+                  </li>
+                  <li className="nav-item">
                     <Link to="/balance" className="nav-link" title="Check your balance information.">Balance</Link>
                   </li>
                   <li className="nav-item">
@@ -70,13 +74,16 @@ const NavBar = ({ users, loggedIn, setLoggedIn, setCurrentUser, currentUser }) =
             <CreateAccount loggedIn={loggedIn} setLoggedIn={setLoggedIn} setCurrentUser={setCurrentUser} />
           </Route>
           <Route path="/login">
-            <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setCurrentUser={setCurrentUser} users={users} />
+            <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setCurrentUser={setCurrentUser} />
           </Route>
           <Route path="/deposit">
-            <Deposit />
+            <Deposit setCurrentUser={setCurrentUser} />
           </Route>
           <Route path="/withdraw" >
-            <Withdraw />
+            <Withdraw setCurrentUser={setCurrentUser} />
+          </Route>
+          <Route path="/transfer" >
+            <Transfer setCurrentUser={setCurrentUser} currentUser = {currentUser} />
           </Route>
           <Route path="/balance">
             <Balance />

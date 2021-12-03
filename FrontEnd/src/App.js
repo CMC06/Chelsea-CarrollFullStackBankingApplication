@@ -11,6 +11,7 @@ function App() {
   const [users, setUsers] = useState();
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [accountExists, setAccountExists] = useState(false);
   
   //pulling all account data from database
   useEffect(() => {
@@ -25,7 +26,7 @@ function App() {
   return (
     <div className="App">
     <UserContext.Provider value={currentUser} >
-      <NavBar users={users} setUsers={setUsers} loggedIn={loggedIn} setLoggedIn={setLoggedIn} setCurrentUser={setCurrentUser} currentUser={currentUser} />
+      <NavBar users={users} setUsers={setUsers} loggedIn={loggedIn} setLoggedIn={setLoggedIn} setCurrentUser={setCurrentUser} currentUser={currentUser} accountExists={accountExists} setAccountExists={setAccountExists} />
     </UserContext.Provider>
     </div>
   );

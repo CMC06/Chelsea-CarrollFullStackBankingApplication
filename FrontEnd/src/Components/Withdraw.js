@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { UserContext } from '../App';
 
-const Withdraw = () => {
+const Withdraw = ({ setCurrentUser }) => {
   const [ withdrawalAmt, setWithdrawalAmt ] = useState(0);
   const [ success, setSuccess ] = useState(false);
   const [ warnOverdraft, setWarnOverdraft ] = useState(false);
@@ -13,7 +13,7 @@ const Withdraw = () => {
 
   const handleChange = (e) => {
     setWithdrawalAmt(e.target.value);
-    console.log(e.target.value);
+    
     if(warnOverdraft) setWarnOverdraft(false);
     if(e.target.value !== null || undefined || '') {
       setBtnDisable(false);
@@ -33,16 +33,31 @@ const Withdraw = () => {
     let newBalance = Number(balance) - Number(withdrawalAmt);
     if(newBalance <= 0){
       setWarnOverdraft(true);
-      return;
     }
-    setSuccess(true);
-    console.log('new balance: ' + newBalance);
-    user.balance = newBalance;
+    return newBalance;
   }
 
   const handleSubmit = () => {
-    updateBalance();
-    setWithdrawalAmt(0);
+    const email = user.email;
+    
+    const newBalance = updateBalance();
+    if (newBalance < 0) {
+      setWarnOverdraft(true);
+      return;
+    } else {
+      const url = `/account/updateBalance/${email}/${newBalance}`;
+      (async () => {
+        const res = await fetch(url);
+        const data = await res.json();
+        
+        if(data.email === email){
+          setCurrentUser({...data});
+          setWithdrawalAmt(0);
+          setSuccess(true);
+        }
+      })();
+    }
+    
   }
 
   const handleAddition = () => {
