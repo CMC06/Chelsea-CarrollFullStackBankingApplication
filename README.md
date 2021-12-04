@@ -1,4 +1,4 @@
-![Image of BadBank Homepage](https://github.com/CMC06/bad-bank/blob/dev/bad-bank-homepage.JPG)
+![Image of BadBank Homepage](https://github.com/CMC06/Chelsea-CarrollFullStackBankingApplication/blob/d2a95e91506118279e46fbba3d391051555e8d6d/bad-bank-homepage.JPG)
 
 # Bad Bank Project
 This is an academic project building a mocked bank interface. This project was built using React, Express, Node, MongoDB, and Docker.
