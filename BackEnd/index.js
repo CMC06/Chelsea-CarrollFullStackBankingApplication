@@ -10,10 +10,11 @@ app.use(cors());
 
 //create user account
 app.get('/account/create/:name/:email/:password', (req, res) => {
-  dal.checkForAccount(req.params.email)
+  const email = req.params.email.toLowerCase();
+  dal.checkForAccount(email)
     .then((user) => {
       if(user === null){
-        dal.create(req.params.name, req.params.email, req.params.password)
+        dal.create(req.params.name, email, req.params.password)
           .then((user) => {
             console.log(user);
             res.send(user);
@@ -32,7 +33,8 @@ app.get('/account/create/:name/:email/:password', (req, res) => {
 
 //TODO login user
 app.get('/account/login/:email/:password', (req, res) => {
-  dal.checkForAccount(req.params.email)
+  const email = req.params.email.toLowerCase();
+  dal.checkForAccount(email)
     .then((user) => {
       if(user !== null){
         if(req.params.password === user.password){
@@ -63,7 +65,8 @@ app.get('/account/all', (req, res) => {
 
 //update balance info
 app.get('/account/updateBalance/:email/:balance', (req, res) => {
-  dal.updateBalance(req.params.email, req.params.balance)
+  const email = req.params.email.toLowerCase();
+  dal.updateBalance(email, req.params.balance)
     .then((doc) => {
       if(doc.modifiedCount === 1){
         dal.checkForAccount(req.params.email)
@@ -76,7 +79,8 @@ app.get('/account/updateBalance/:email/:balance', (req, res) => {
 
 //check user
 app.get('/account/checkUser/:email', (req, res) => {
-  dal.checkForAccount(req.params.email)
+  const email = req.params.email.toLowerCase();
+  dal.checkForAccount(email)
     .then(user => {
       res.send(user);
     })
@@ -85,6 +89,6 @@ app.get('/account/checkUser/:email', (req, res) => {
     })
 })
 
-const port = 3000;
+const port = 5000;
 app.listen(port);
 console.log(`Running on port: ${port}`);
