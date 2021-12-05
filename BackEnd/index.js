@@ -31,7 +31,7 @@ app.get('/account/create/:name/:email/:password', (req, res) => {
     })
 });
 
-//TODO login user
+// login user
 app.get('/account/login/:email/:password', (req, res) => {
   const email = req.params.email.toLowerCase();
   dal.checkForAccount(email)
@@ -89,6 +89,6 @@ app.get('/account/checkUser/:email', (req, res) => {
     })
 })
 
-const port = 5000;
+const port = 3000;
 app.listen(port);
 console.log(`Running on port: ${port}`);
