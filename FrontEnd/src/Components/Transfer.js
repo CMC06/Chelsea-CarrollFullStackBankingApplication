@@ -79,7 +79,8 @@ const Transfer = ({ currentUser, setCurrentUser }) => {
       alert('You are attempting to transfer more money than is available in your account. We cannot perform your transfer request at this time. Please adjust the amount you wish to transfer to a number that is less than or equal to your current balance.');
       return;
     } else {
-      const userUrl  = `/account/checkUser/${transferEmail}`
+      const transEmail = transferEmail.toLowerCase();
+      const userUrl  = `/account/checkUser/${transEmail}`
       const balanceUrl = `/account/updateBalance/${email}/${newBalance}`;
       
       (async () => {
@@ -96,13 +97,13 @@ const Transfer = ({ currentUser, setCurrentUser }) => {
         if(transUser && newBalance >= 0){
           //debit transfer amount from currentUser account
           const res = await fetch(balanceUrl);
-          const data = await res.json();
+          const updatedCurrentUser = await res.json();
     
-          if(data){
+          if(updatedCurrentUser){
             setCurrentUser({...currentUser, balance: newBalance });  
             //deposit transfer amount to transfer account
             const newTransBalance = updateTransferBalance(transUser.balance);
-            const transBalanceUrl = `/account/updateBalance/${transferEmail}/${newTransBalance}`;
+            const transBalanceUrl = `/account/updateBalance/${transUser.email}/${newTransBalance}`;
             (async () => {
               const res = await fetch(transBalanceUrl);
               const data = await res.json();
