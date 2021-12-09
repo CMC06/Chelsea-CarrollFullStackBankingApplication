@@ -13,7 +13,8 @@ const CreateAccount = ({ setLoggedIn, setCurrentUser }) => {
   
 
   const handleSubmit = () => {
-    const url = `/account/create/${name}/${email}/${password}`;
+    const lowerEmail = email.toLowerCase();
+    const url = `/account/create/${name}/${lowerEmail}/${password}`;
     (async () => {
       const res = await fetch(url);
       if(res.status === 409){
