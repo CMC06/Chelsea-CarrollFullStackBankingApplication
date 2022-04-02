@@ -7,6 +7,11 @@ const dal = require('./dal.js');
 //allow cross origin access
 app.use(cors());
 
+//welcome message
+app.get('/', (req, res) => {
+  res.send('Welcome to the bad-bank project api');
+})
+
 //create user account
 app.get('/account/create/:name/:email/:password', (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
