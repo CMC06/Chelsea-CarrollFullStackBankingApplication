@@ -13,20 +13,23 @@ const CreateAccount = ({ setLoggedIn, setCurrentUser }) => {
   
 
   const handleSubmit = () => {
-    const lowerEmail = email.toLowerCase();
-    const url = `/account/create/${name}/${lowerEmail}/${password}`;
+    const url = `/account/create/${name}/${email.toLowerCase()}/${password}`;
     (async () => {
       const res = await fetch(url);
       if(res.status === 409){
-        console.log('Email already attached to existing account. Please log in.');
+        // console.log('Email already attached to existing account. Please log in.');
         alert('Error: this email address is already attached to an account. Please log in to your existing account.');
         return null;
       }
       const data = await res.json();
-      // console.log(data);
+      
       setSuccess(true);
       setLoggedIn(true);
       setCurrentUser({...data});
+      sessionStorage.setItem('name', `${data.name}`);
+      sessionStorage.setItem('email', `${data.email}`);
+      sessionStorage.setItem('balance', `${data.balance}`);
+
     })();
     
   };

@@ -3,6 +3,7 @@ const Logout = ({ setCurrentUser, setLoggedIn, loggedIn }) => {
   let logged = loggedIn;
   
   const handleConfirm = () =>{
+    sessionStorage.clear();
     setCurrentUser(null);
     setLoggedIn(false);
     logged = false;

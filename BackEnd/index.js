@@ -4,13 +4,13 @@ require('dotenv').config()
 const cors = require('cors');
 const dal = require('./dal.js');
 
-// use to serve static files from public directory
-app.use(express.static('public'));
+//allow cross origin access
 app.use(cors());
 
 //create user account
 app.get('/account/create/:name/:email/:password', (req, res) => {
-  const email = req.params.email.toLowerCase();
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  const email = req.params.email;
   dal.checkForAccount(email)
     .then((user) => {
       if(user === null){
@@ -33,7 +33,7 @@ app.get('/account/create/:name/:email/:password', (req, res) => {
 
 // login user
 app.get('/account/login/:email/:password', (req, res) => {
-  const email = req.params.email.toLowerCase();
+  const email = req.params.email;
   dal.checkForAccount(email)
     .then((user) => {
       if(user !== null){
@@ -65,7 +65,7 @@ app.get('/account/all', (req, res) => {
 
 //update balance info
 app.get('/account/updateBalance/:email/:balance', (req, res) => {
-  const email = req.params.email.toLowerCase();
+  const email = req.params.email;
   dal.updateBalance(email, req.params.balance)
     .then((doc) => {
       if(doc.modifiedCount === 1){
@@ -79,7 +79,7 @@ app.get('/account/updateBalance/:email/:balance', (req, res) => {
 
 //check user
 app.get('/account/checkUser/:email', (req, res) => {
-  const email = req.params.email.toLowerCase();
+  const email = req.params.email;
   dal.checkForAccount(email)
     .then(user => {
       res.send(user);
@@ -89,6 +89,6 @@ app.get('/account/checkUser/:email', (req, res) => {
     })
 })
 
-const port = 3000;
+const port = 5000;
 app.listen(port);
 console.log(`Running on port: ${port}`);

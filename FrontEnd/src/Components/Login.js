@@ -12,7 +12,7 @@ const Login = ({ loggedIn, setLoggedIn, setCurrentUser }) => {
   //TODO write submit logic to communicate with backend to check login credentials against stored credentials
   const handleSubmit = () => {
     //verifies user submitted information against user information in database
-    const url = `/account/login/${email}/${password}`;
+    const url = `/account/login/${email.toLowerCase()}/${password}`;
     (async () => {
       const res = await fetch(url);
       if(res.status === 401 || res.status === 409){
@@ -24,6 +24,9 @@ const Login = ({ loggedIn, setLoggedIn, setCurrentUser }) => {
           setLoggedIn(true);
           //updates current user with database information
           setCurrentUser({...data});
+          sessionStorage.setItem('name', `${data.name}`);
+          sessionStorage.setItem('email', `${data.email}`);
+          sessionStorage.setItem('balance', `${data.balance}`);
       }
       }
     })();

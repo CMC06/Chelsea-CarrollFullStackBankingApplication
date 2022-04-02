@@ -13,7 +13,7 @@ const Deposit = ({ setCurrentUser }) => {
 
   const handleChange = (e) => {
     setDepositAmt(e.target.value);
-    console.log(e.target.value);
+  
     if(e.target.value !== undefined || null || '') {
       setBtnDisable(false);
     } 
@@ -46,6 +46,7 @@ const Deposit = ({ setCurrentUser }) => {
         setCurrentUser({...data});
         setDepositAmt(0);
         setSuccess(true);
+        sessionStorage.setItem('balance', `${newBalance}`);
       }
     })();
     

@@ -1,9 +1,9 @@
 const { MongoClient } = require('mongodb');
-const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@bad-bank-cmc06.gvnof.mongodb.net/users?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.4siiz.mongodb.net/bad-bank?retryWrites=true&w=majority`;
 //client to connect to for data
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 //collection where bad-bank data is housed
-const collection = client.db("bad-bank-cmc06").collection('users');
+const collection = client.db("bad-bank").collection('users');
 
 //create user account
 const create = (name, email, password) => {

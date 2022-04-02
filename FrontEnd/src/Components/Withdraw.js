@@ -54,6 +54,7 @@ const Withdraw = ({ setCurrentUser }) => {
           setCurrentUser({...data});
           setWithdrawalAmt(0);
           setSuccess(true);
+          sessionStorage.setItem('balance', `${newBalance}`);
         }
       })();
     }

@@ -83,7 +83,7 @@ const NavBar = ({ users, loggedIn, setLoggedIn, setCurrentUser, currentUser }) =
             <Withdraw setCurrentUser={setCurrentUser} />
           </Route>
           <Route path="/transfer" >
-            <Transfer setCurrentUser={setCurrentUser} currentUser = {currentUser} />
+            <Transfer setCurrentUser={setCurrentUser} currentUser = {currentUser} setLoggedIn={setLoggedIn} />
           </Route>
           <Route path="/balance">
             <Balance />

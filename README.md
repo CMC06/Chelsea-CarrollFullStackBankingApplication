@@ -4,7 +4,7 @@
 This is an academic project building a mocked bank interface. This project was built using React, Express, Node, MongoDB, and Docker.
 
 ## How to Run
-This application runs in the web browser and utilizes a docker container housing the Mongo database.
+This application runs in the web browser. Please do not use any of your real username or password credentials as this is not a secure application and is meant for demonstration purposes only.
 
 ## Current Features
 <li>Deposit Page - Allows user to add to balance</li>
@@ -13,12 +13,13 @@ This application runs in the web browser and utilizes a docker container housing
 <li>Login Page - Allows user to authenticate and see stored values for account balance [in progress]</li>
 <li>Create Account Page - Creates a new user account entry and pushes information to database for storage</li>
 <li>All Data Page - Shows all user data (including passwords), part of why this is not a good bank</li>
+<li>Authentication allows users to see their specific information</li>
+<li>User balance information is updated with each account transaction</li>
+<li>Added a user transfer option that allows a user to transfer money to account of another Bad Bank account holder by e-mail address.</li>
 
 ## Future Improvements
 <li>Research and add security measures</li>
-<li>Add backend for data storage and retrieval (Completed 10/27/21)</li>
-<li>Add user login and account verification so account holders could log in and have access to their specific data</li>
-<li>Ensure that any changes to balance information are stored in database after current user authenticates</li>
+<li>Add functionality for account recovery and password reset</li>
 
 ## License
 MIT License

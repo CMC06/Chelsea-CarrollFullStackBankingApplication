@@ -1,6 +1,27 @@
-const AllData = ({ users }) => {
-  
-  const dataList = users.map(user => {
+
+
+const AllData = ({ users, setUsers }) => {
+
+  let dataList;
+
+  if(!users){
+    const url = '/account/all';
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        setUsers([...data])
+        dataList = data.map(user => {
+          return(
+            <tr key={user._id}>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>{user.balance}</td>
+            </tr>
+          )
+        })
+      });
+  } else {
+    dataList = users.map(user => {
       return (
       <tr key={user._id}>
         <td>{user.name}</td>
@@ -9,7 +30,7 @@ const AllData = ({ users }) => {
       </tr>
       )
   });
-  
+  }
   
   
   return (

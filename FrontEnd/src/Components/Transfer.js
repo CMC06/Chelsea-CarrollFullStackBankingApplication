@@ -22,8 +22,8 @@ const Transfer = ({ currentUser, setCurrentUser }) => {
     setTransError(false);
   }
 
-  const updateTransferBalance = (transBalance) => {
-    let newBalance = Number(transBalance) + Number(transferAmt);
+  const updateTransferBalance = (transferBalance) => {
+    let newBalance = Number(transferBalance) + Number(transferAmt);
     return newBalance
   }
 
@@ -79,36 +79,39 @@ const Transfer = ({ currentUser, setCurrentUser }) => {
       alert('You are attempting to transfer more money than is available in your account. We cannot perform your transfer request at this time. Please adjust the amount you wish to transfer to a number that is less than or equal to your current balance.');
       return;
     } else {
-      const transEmail = transferEmail.toLowerCase();
-      const userUrl  = `/account/checkUser/${transEmail}`
+      
+      const userUrl  = `/account/checkUser/${transferEmail.toLowerCase()}`
       const balanceUrl = `/account/updateBalance/${email}/${newBalance}`;
       
       (async () => {
         
         //check for transfer email in users
         const res = await fetch(userUrl);
-        const transUser = await res.json();
 
         //if transfer recipient does not have bad bank account or wrong e-mail address
-        if(transUser === null){
+        if(res === null){
           alert('The user you are attempting to send money to does not have a Bad Bank account. At this time our bank cannot transfer money to those who bank elsewhere. We apologize for any inconvenience.');
+          return;
         }
         
-        if(transUser && newBalance >= 0){
+        const transferUser = await res.json();
+        
+        if(transferUser && newBalance >= 0){
           //debit transfer amount from currentUser account
           const res = await fetch(balanceUrl);
           const updatedCurrentUser = await res.json();
     
           if(updatedCurrentUser){
             setCurrentUser({...currentUser, balance: newBalance });  
+            sessionStorage.setItem('balance', `${newBalance}`);
             //deposit transfer amount to transfer account
-            const newTransBalance = updateTransferBalance(transUser.balance);
-            const transBalanceUrl = `/account/updateBalance/${transUser.email}/${newTransBalance}`;
+            const newTransferBalance = updateTransferBalance(transferUser.balance);
+            const transBalanceUrl = `/account/updateBalance/${transferUser.email}/${newTransferBalance}`;
             (async () => {
               const res = await fetch(transBalanceUrl);
               const data = await res.json();
       
-              if(data.email === transUser.email){
+              if(data.email === transferUser.email){
                 setTransferAmt(0);
                 setSuccess(true);
               }
