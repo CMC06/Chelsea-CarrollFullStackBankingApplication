@@ -6,11 +6,7 @@ const dal = require('./dal.js');
 
 //allow cross origin access
 app.use(cors());
-
-//welcome message
-app.get('/', (req, res) => {
-  res.send('Welcome to the bad-bank project api');
-})
+app.use(express.static('build'));
 
 //create user account
 app.get('/account/create/:name/:email/:password', (req, res) => {
@@ -92,7 +88,12 @@ app.get('/account/checkUser/:email', (req, res) => {
     .catch(err => {
       console.log(err);
     })
-})
+});
+
+//reroute any other routes back to root on refresh
+app.get('*', (req, res) => {
+  res.redirect(302, '/')
+});
 
 const port = 5000;
 app.listen(port);
