@@ -39,7 +39,7 @@ const AllData = ({ users, setUsers }) => {
         <h2>All User Data</h2>
         </div>
         { users ? 
-          <div className="tableDiv">
+          <div className="tableDiv table-responsive">
             <table className="table table-striped table-hover ">
               <thead>
                 <tr>
