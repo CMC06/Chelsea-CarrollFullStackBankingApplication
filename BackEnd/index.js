@@ -83,6 +83,9 @@ app.get('/account/checkUser/:email', (req, res) => {
   const email = req.params.email;
   dal.checkForAccount(email)
     .then(user => {
+      if(user === null){
+        res.status(409);
+      }
       res.send(user);
     })
     .catch(err => {

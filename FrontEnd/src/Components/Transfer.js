@@ -84,12 +84,11 @@ const Transfer = ({ currentUser, setCurrentUser }) => {
       const balanceUrl = `/account/updateBalance/${email}/${newBalance}`;
       
       (async () => {
-        
         //check for transfer email in users
         const res = await fetch(userUrl);
 
         //if transfer recipient does not have bad bank account or wrong e-mail address
-        if(res === null){
+        if(res.status === 409){
           alert('The user you are attempting to send money to does not have a Bad Bank account. At this time our bank cannot transfer money to those who bank elsewhere. We apologize for any inconvenience.');
           return;
         }
