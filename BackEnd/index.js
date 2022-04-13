@@ -84,7 +84,8 @@ app.get('/account/checkUser/:email', (req, res) => {
   dal.checkForAccount(email)
     .then(user => {
       if(user === null){
-        res.status(409);
+        res.status(409).send('Requested transfer recipient not a Bad Bank account holder. Cannot apply transfer.');
+        return;
       }
       res.send(user);
     })
