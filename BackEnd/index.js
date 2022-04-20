@@ -56,7 +56,7 @@ app.get('/account/login/:email/:password', (req, res) => {
 app.get('/account/all', (req, res) => {
   dal.allUsers().
     then((docs) => {
-      console.log(docs);
+      //console.log(docs);
       res.send(docs);
     })
     .catch((err) => {
@@ -93,6 +93,24 @@ app.get('/account/checkUser/:email', (req, res) => {
       console.log(err);
     })
 });
+
+//delete user
+app.delete('/account/deleteAccount/:email', (req, res) => {
+  const email = req.params.email;
+  if(email === 'tester@test.ing') {
+    res.status(409).send('Cannot delete demo account.');
+  }
+  dal.deleteAccount(email)
+    .then(data => {
+      if(data.email === email){
+        res.status(200);
+        res.send('Deletion complete.');
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
+})
 
 //reroute any other routes back to root on refresh
 app.get('*', (req, res) => {

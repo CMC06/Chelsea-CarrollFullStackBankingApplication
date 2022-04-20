@@ -70,5 +70,23 @@ const checkForAccount = (email) => {
   });
 }
 
+//delete user account
+const deleteAccount = (email) => {
+  return new Promise ((resolve, reject) => {
+    client.connect(err => {
+      collection.findOneAndDelete(
+        { "email": email }
+      )
+      .then((data) => {
+        resolve(data.value);
+      })
+      .catch(err => {
+        console.log(err)
+        reject(err);
+      });
+    });
+  });
+}
 
-module.exports = { create, allUsers, updateBalance, checkForAccount };
+
+module.exports = { create, allUsers, updateBalance, checkForAccount, deleteAccount };

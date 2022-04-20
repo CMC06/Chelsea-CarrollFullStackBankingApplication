@@ -13,6 +13,7 @@ import Login from "./Login";
 import Logout from "./Logout";
 import Withdraw from "./Withdraw";
 import Transfer from "./Transfer";
+import DeleteAccount from "./DeleteAccount";
 
 const NavBar = ({ users, loggedIn, setLoggedIn, setCurrentUser, currentUser }) => {
 
@@ -54,6 +55,9 @@ const NavBar = ({ users, loggedIn, setLoggedIn, setCurrentUser, currentUser }) =
                     <Link to="/all-data" className="nav-link" title="View all user data.">All Data</Link>
                   </li>
                   <li className="nav-item">
+                    <Link to='/delete-account' className="nav-link" title="Delete My Bad Bank Account">Delete Account</Link>
+                  </li>
+                  <li className="nav-item">
                     <Link to="/logout" className="nav-link" title="Logout.">Logout</Link>
                   </li>
                 </>
@@ -90,6 +94,9 @@ const NavBar = ({ users, loggedIn, setLoggedIn, setCurrentUser, currentUser }) =
           </Route>
           <Route path="/all-data">
             <AllData users={users} />
+          </Route>
+          <Route path='/delete-account'>
+            <DeleteAccount currentUser={currentUser} setCurrentUser={setCurrentUser} setLoggedIn={setLoggedIn} />
           </Route>
           <Route path="/logout">
             <Logout setCurrentUser={setCurrentUser} setLoggedIn={setLoggedIn} loggedIn={loggedIn} />
