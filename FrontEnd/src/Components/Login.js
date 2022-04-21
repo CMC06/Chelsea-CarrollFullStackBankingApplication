@@ -9,7 +9,6 @@ const Login = ({ loggedIn, setLoggedIn, setCurrentUser }) => {
   const [btnDisable, setBtnDisable] = useState(true);
 
 
-  //TODO write submit logic to communicate with backend to check login credentials against stored credentials
   const handleSubmit = () => {
     //verifies user submitted information against user information in database
     const url = `/account/login/${email.toLowerCase()}/${password}`;
@@ -30,6 +29,23 @@ const Login = ({ loggedIn, setLoggedIn, setCurrentUser }) => {
       }
       }
     })();
+  }
+
+  //logic for logging in as Demo User account
+  const handleDemoSubmit = () => {
+    const url = '/account/login/tester@test.ing/testing123';
+    (async () => {
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if(data){
+        setLoggedIn(true);
+        setCurrentUser({...data});
+        sessionStorage.setItem('name', `${data.name}`);
+        sessionStorage.setItem('email', `${data.email}`);
+        sessionStorage.setItem('balance', `${data.balance}`);
+      }
+    })()
   }
 
   const handleChange = (e) => {
@@ -94,6 +110,7 @@ const Login = ({ loggedIn, setLoggedIn, setCurrentUser }) => {
             <input type="password" minLength="8" placeholder="Password" id="password" onChange={handleChange} className="form-control" /> 
             {passwordError ? <p className="negative smallP">Your password must be at least 8 characters long.</p> : null } <br />
             {btnDisable ? <button type="button" disabled={true} onClick={handleSubmit} className="btn btn-dark">Login</button> : <button type="button" disabled={false} onClick={handleSubmit} className="btn btn-dark">Login</button>}
+            <button type="button" disabled={false} onClick={handleDemoSubmit} className="btn btn-dark" style={{'marginLeft': '10px'}}>Demo Account Login</button>
             </div>
           </form>
           }
