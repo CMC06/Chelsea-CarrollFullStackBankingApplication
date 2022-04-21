@@ -1,15 +1,13 @@
-import { useState, useContext } from 'react';
-import { UserContext } from '../App';
+import { useState } from 'react';
 
-const Withdraw = ({ setCurrentUser }) => {
+const Withdraw = ({ setCurrentUser, currentUser }) => {
   const [ withdrawalAmt, setWithdrawalAmt ] = useState(0);
   const [ success, setSuccess ] = useState(false);
   const [ warnOverdraft, setWarnOverdraft ] = useState(false);
   const [ btnDisable, setBtnDisable ] = useState(true);
   const [ negError, setNegError ] = useState(false);
 
-  const user = useContext(UserContext);
-  const balance = user.balance;
+  const balance = currentUser.balance;
 
   const handleChange = (e) => {
     setWithdrawalAmt(e.target.value);
@@ -38,7 +36,7 @@ const Withdraw = ({ setCurrentUser }) => {
   }
 
   const handleSubmit = () => {
-    const email = user.email;
+    const email = currentUser.email;
     
     const newBalance = updateBalance();
     if (newBalance < 0) {
@@ -47,15 +45,19 @@ const Withdraw = ({ setCurrentUser }) => {
     } else {
       const url = `/account/updateBalance/${email}/${newBalance}`;
       (async () => {
-        const res = await fetch(url);
-        const data = await res.json();
-        
-        if(data.email === email){
-          setCurrentUser({...data});
+        const resBalance = await fetch(url, {
+          method: 'PUT'
+        });
+
+        if(resBalance.status === 204){
+
+          setCurrentUser({ email: currentUser.email, name: currentUser.name, balance: Number(newBalance) });
           setWithdrawalAmt(0);
           setSuccess(true);
           sessionStorage.setItem('balance', `${newBalance}`);
+
         }
+        
       })();
     }
     

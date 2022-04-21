@@ -1,15 +1,13 @@
-import { useState, useContext } from 'react';
-import { UserContext } from '../App';
+import { useState } from 'react';
 
-const Deposit = ({ setCurrentUser }) => {
+const Deposit = ({ setCurrentUser, currentUser }) => {
 
   const [ depositAmt, setDepositAmt ] = useState(0);
   const [ success, setSuccess ] = useState(false);
   const [ btnDisable, setBtnDisable ] = useState(true);
   const [ negError, setNegError ] = useState(false);
 
-  const user = useContext(UserContext);
-  const balance = user.balance;
+  const balance = currentUser.balance;
 
   const handleChange = (e) => {
     setDepositAmt(e.target.value);
@@ -34,20 +32,25 @@ const Deposit = ({ setCurrentUser }) => {
   }
 
   const handleSubmit = () => {
-    const email = user.email;
+    const email = currentUser.email;
     
     const newBalance = updateBalance();
     const url = `/account/updateBalance/${email}/${newBalance}`;
     (async () => {
-      const res = await fetch(url);
-      const data = await res.json();
+      const resBalance = await fetch(url, {
+        method: 'PUT'
+      });
       
-      if(data.email === email){
-        setCurrentUser({...data});
+      if(resBalance.status === 204){
+
+        setCurrentUser({name: currentUser.name, email: currentUser.email, balance: Number(newBalance)});
         setDepositAmt(0);
         setSuccess(true);
         sessionStorage.setItem('balance', `${newBalance}`);
+      
       }
+      
+      
     })();
     
   }

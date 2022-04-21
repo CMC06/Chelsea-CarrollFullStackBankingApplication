@@ -81,13 +81,13 @@ const NavBar = ({ users, loggedIn, setLoggedIn, setCurrentUser, currentUser }) =
             <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setCurrentUser={setCurrentUser} />
           </Route>
           <Route path="/deposit">
-            <Deposit setCurrentUser={setCurrentUser} />
+            <Deposit setCurrentUser={setCurrentUser} currentUser={currentUser} />
           </Route>
           <Route path="/withdraw" >
-            <Withdraw setCurrentUser={setCurrentUser} />
+            <Withdraw setCurrentUser={setCurrentUser} currentUser={currentUser} />
           </Route>
           <Route path="/transfer" >
-            <Transfer setCurrentUser={setCurrentUser} currentUser = {currentUser} setLoggedIn={setLoggedIn} />
+            <Transfer setCurrentUser={setCurrentUser} currentUser={currentUser} setLoggedIn={setLoggedIn} />
           </Route>
           <Route path="/balance">
             <Balance />

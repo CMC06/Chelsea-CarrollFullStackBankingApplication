@@ -97,23 +97,27 @@ const Transfer = ({ currentUser, setCurrentUser }) => {
         
         if(transferUser && newBalance >= 0){
           //debit transfer amount from currentUser account
-          const res = await fetch(balanceUrl);
-          const updatedCurrentUser = await res.json();
+          const res = await fetch(balanceUrl, {
+            method: 'PUT'
+          });
     
-          if(updatedCurrentUser){
-            setCurrentUser({...currentUser, balance: newBalance });  
+          if(res.status === 204){
+            setCurrentUser({...currentUser, balance: Number(newBalance) });  
             sessionStorage.setItem('balance', `${newBalance}`);
             //deposit transfer amount to transfer account
             const newTransferBalance = updateTransferBalance(transferUser.balance);
             const transBalanceUrl = `/account/updateBalance/${transferUser.email}/${newTransferBalance}`;
             (async () => {
-              const res = await fetch(transBalanceUrl);
-              const data = await res.json();
-      
-              if(data.email === transferUser.email){
+              const resBalance = await fetch(transBalanceUrl, {
+                method: 'PUT'
+              });
+
+              if(resBalance.status === 204){
                 setTransferAmt(0);
                 setSuccess(true);
               }
+
+              
             })();
           }
         } else {
