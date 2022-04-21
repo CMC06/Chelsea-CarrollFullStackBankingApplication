@@ -9,8 +9,7 @@ app.use(cors());
 app.use(express.static('build'));
 
 //create user account
-app.get('/account/create/:name/:email/:password', (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+app.post('/account/create/:name/:email/:password', (req, res) => {
   const email = req.params.email;
   dal.checkForAccount(email)
     .then((user) => {
@@ -18,6 +17,7 @@ app.get('/account/create/:name/:email/:password', (req, res) => {
         dal.create(req.params.name, email, req.params.password)
           .then((user) => {
             console.log(user);
+            res.status(201);
             res.send(user);
           })
           .catch((err) => {
@@ -52,11 +52,10 @@ app.get('/account/login/:email/:password', (req, res) => {
     })
 });
 
-//all accounts
+//get all accounts
 app.get('/account/all', (req, res) => {
-  dal.allUsers().
-    then((docs) => {
-      //console.log(docs);
+  dal.allUsers()
+    .then((docs) => {
       res.send(docs);
     })
     .catch((err) => {
@@ -65,14 +64,12 @@ app.get('/account/all', (req, res) => {
 });
 
 //update balance info
-app.get('/account/updateBalance/:email/:balance', (req, res) => {
+app.put('/account/updateBalance/:email/:balance', (req, res) => {
   const email = req.params.email;
   dal.updateBalance(email, req.params.balance)
     .then((doc) => {
       if(doc.modifiedCount === 1){
-        dal.checkForAccount(req.params.email)
-          .then(user => res.send(user))
-          .catch(err => console.log(err))
+        res.status(204).send('Balance updated');
       } 
     })
     .catch((err) => console.log(`Balance updated rejected due to error: ${err}`))

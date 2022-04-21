@@ -32,13 +32,12 @@ const allUsers = () => {
 
 //update balance info
 const updateBalance = (email, newBalance) => {
-  let balance = Number(newBalance)
   return new Promise((resolve, reject) => {
     client.connect(err => {
       collection.updateOne(
         {"email": email}, 
         {
-          $set: {"balance": balance}
+          $set: {"balance": Number(newBalance)}
         })
         .then(doc => {
           resolve(doc);
