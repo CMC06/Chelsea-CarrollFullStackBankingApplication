@@ -71,7 +71,7 @@ const Withdraw = ({ setCurrentUser, currentUser }) => {
     <div>
       <div className="card">
         <div className="card-header">
-          <h2>Make a Withdrawal:</h2>
+          <h2>Make a Withdrawal</h2>
         </div>
         <div className="card-body">
           <p className="card-text">Your current account balance is: <strong>${balance}</strong></p>

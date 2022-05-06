@@ -1,6 +1,6 @@
 const express = require('express');
+require('dotenv').config();
 const app = express();
-require('dotenv').config()
 const cors = require('cors');
 const dal = require('./dal.js');
 

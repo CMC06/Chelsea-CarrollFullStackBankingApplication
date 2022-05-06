@@ -10,7 +10,7 @@ const Balance = () => {
     <div>
       <div className="card">
         <div className="card-header">
-          <h2>Your Current Balance:</h2>
+          <h2>Your Current Balance</h2>
         </div>
         <div className="card-body">
           <p className="card-text"><strong>${balance}</strong></p>

@@ -63,7 +63,7 @@ const Deposit = ({ setCurrentUser, currentUser }) => {
     <div>
       <div className="card">
         <div className="card-header">
-          <h2>Make a Deposit:</h2>
+          <h2>Make a Deposit</h2>
         </div>
         <div className="card-body">
           <p className="card-text">Your current account balance is: <strong>${balance}</strong></p>
