@@ -46,7 +46,7 @@ const CreateAccount = ({ setLoggedIn, setCurrentUser }) => {
 
     if(e.target.id === 'name'){
       setName(e.target.value);
-      if(e.target.value !== '' && email !== '' && password !== ''){
+      if(e.target.value !== '' && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) && password !== ''){
         validated = true;
       } else {
         validated = false;
@@ -60,15 +60,15 @@ const CreateAccount = ({ setLoggedIn, setCurrentUser }) => {
 
     if(e.target.id === 'email'){
       setEmail(e.target.value);
-      if(e.target.value !== '' && name !== '' && password !== ''){
+      if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value) && name !== '' && password !== ''){
         validated = true;
       } else {
         validated = false;
       }
-      if(e.target.value === ''){
-        setEmailError(true);
-      } else {
+      if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value)){
         setEmailError(false);
+      } else {
+        setEmailError(true);
       }
       if(name === ''){
         setNameError(true);
@@ -77,7 +77,7 @@ const CreateAccount = ({ setLoggedIn, setCurrentUser }) => {
 
     if(e.target.id === 'password') {
       setPassword(e.target.value);
-      if(e.target.value !== '' && e.target.value.length >= 8 && name !== '' && password !== ''){
+      if(e.target.value !== '' && e.target.value.length >= 8 && name !== '' && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) ){
         validated = true;
       } else {
         validated = false;
@@ -90,7 +90,7 @@ const CreateAccount = ({ setLoggedIn, setCurrentUser }) => {
       if(name === ''){
         setNameError(true);
       }
-      if(email === ''){
+      if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value))){
         setEmailError(true);
       }
     }
