@@ -1,30 +1,38 @@
 ![Image of BadBank Homepage](https://github.com/CMC06/Chelsea-CarrollFullStackBankingApplication/blob/d2a95e91506118279e46fbba3d391051555e8d6d/bad-bank-homepage.JPG)
 
 # Bad Bank Project
-This is an academic project building a mocked bank interface. This project was built using React, Express, Node, MongoDB, and Docker.
+
+This is an academic project building a mocked bank interface. This project was built using React, Express, Node, and MongoDB Atlas.
 
 ## How to Run
-This application runs in the web browser. Please do not use any of your real username or password credentials as this is not a secure application and is meant for demonstration purposes only.
+
+This application runs in the web browser. Please do not use any of your real username or password credentials as this is not a fully secured application and is meant for demonstration purposes only.
 
 ## Current Features
+
 <li>Deposit Page - Allows user to add to balance</li>
 <li>Withdrawal Page - Allows user to subtract from balance</li>
 <li>Balance Page - Shows user balance</li>
-<li>Login Page - Allows user to authenticate and see stored values for account balance [in progress]</li>
+<li>Login Page - Allows user to authenticate and see stored values for account balance</li>
 <li>Create Account Page - Creates a new user account entry and pushes information to database for storage</li>
-<li>All Data Page - Shows all user data (including passwords), part of why this is not a good bank</li>
+<li>All Data Page - Shows all user data (email, name, balance)</li>
+<li>Transfer Funds Page - Allows user to transfer money to another user of this bank by e-mail address and updates both users' balances</li>
+<li>Delete Account Page - Allows user to delete their account and all data associated with account.</li>
+<li>Logout Page - Logs current user out of Bad Bank application</li>
 <li>Authentication allows users to see their specific information</li>
-<li>User balance information is updated with each account transaction</li>
-<li>Added a user transfer option that allows a user to transfer money to account of another Bad Bank account holder by e-mail address.</li>
+<li>User balance information is updated in database with each account transaction</li>
+<li>Demo account allows for user to demo all functionality except delete account without creating a new account</li>
 
 ## Future Improvements
+
 <li>Research and add security measures</li>
 <li>Add functionality for account recovery and password reset</li>
 
 ## License
+
 MIT License
 
-Copyright (c) 2021 Chelsea Carroll
+Copyright (c) 2021-2022 Chelsea Carroll
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
