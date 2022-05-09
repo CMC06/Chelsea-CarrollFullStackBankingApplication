@@ -21,7 +21,7 @@ This application runs in the web browser. Please do not use any of your real use
 <li>Logout Page - Logs current user out of Bad Bank application</li>
 <li>Authentication allows users to see their specific information</li>
 <li>User balance information is updated in database with each account transaction</li>
-<li>Demo account allows for user to demo all functionality except delete account without creating a new account</li>
+<li>Demo account allows for user to demo all functionality except delete account (since we do not want the demo account to be deleted and thus invalidated)</li>
 
 ## Future Improvements
 
