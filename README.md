@@ -6,7 +6,7 @@ This is an academic project building a mocked bank interface. This project was b
 
 ## How to Run
 
-This application runs in the web browser. Please do not use any of your real username or password credentials as this is not a fully secured application and is meant for demonstration purposes only.
+This application runs in the web browser. Please do not use any of your real username or password credentials as this is not a fully secured application and is meant for demonstration purposes only. If you do use your personal information, please delete it once you are done with your demo of the account.
 
 ## Current Features
 
